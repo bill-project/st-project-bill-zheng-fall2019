@@ -25,7 +25,7 @@ APClassList = [
 school_list = [
     {
         "name" : "UCLA",
-        "image" : "https://reimaginingmigration.org/wp-content/uploads/2019/03/ucla-logo-square.jpg",
+        "image" : "https://static1.squarespace.com/static/59f78b7b692ebe254ac19deb/t/5a3336ebf9619a424b0ae0e7/1547854847589/?format=1500w",
     },
     {
         "name" : "UCI",
