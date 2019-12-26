@@ -6,6 +6,20 @@ import random
 app = Flask(__name__)
 CORS(app)
 
+# gap, sat, act, ap1, ap2, ap3, ap4, ap5, ap6, ap7, ap8, ap9, ap10, ap11, ap12, ap13
+input_data = [
+    [4.2, 1480, 0, 5, 4, 0, 0, 4, 5, 5, 5, 5, 4, 4, 5, 5],
+    [4.5, 1580, 0, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0],
+    [4.0, 1500, 0, 5, 4, 0, 0, 4, 0, 4, 5, 5, 4, 4, 4, 5],
+]
+
+output_data = [
+    5,
+    35,
+
+]
+
+
 APClassList = [
     "US History",
     "Calculus AB",
@@ -21,6 +35,25 @@ APClassList = [
     "Spanish Language",
     "Spanish Lieterature",
 ]
+
+major_map = {
+    'INTJ' : 'Computer Science',
+    'INTP' : 'Engineering',
+    'ENTJ' : 'Business',
+    'ENTP' : 'Environmental Science',
+    'INFJ' : 'Psychology',
+    'INFP' : 'Creative Writing',
+    'ENFJ' : 'Theatre',
+    'ENFP' : 'Architecture',
+    'ISTJ' : 'Accounting',
+    'ISTP' : 'Nursing',
+    'ESFJ' : 'Legal Studies',
+    'ESTP' : 'Culinary Arts',
+    'ISFJ' : 'Nursing',
+    'ISFP' : 'Fashion Design',
+    'ESTJ' : 'Criminology',
+    'ESFP' : 'Music'
+}
 
 school_list = [
     {
@@ -112,8 +145,12 @@ def get_suggested_school(gpa, sat, act, aplist, mbti, residence, loan_amount):
     sat = int(sat)
     act = int(act)
     loan_amount = float(loan_amount)
-
-    res = json.dumps(random.choice(school_list), separators=(',', ':'))
+    res = random.choice(school_list)
+    if mbti in major_map:
+        res['major'] = major_map[mbti]
+    else:
+        res['major'] = 'Science'
+    res = json.dumps(res, separators = (',', ':'))
     print(res)
     return res
 
