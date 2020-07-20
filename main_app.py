@@ -6,7 +6,7 @@ import random
 app = Flask(__name__)
 CORS(app)
 
-# gap, sat, act, ap1, ap2, ap3, ap4, ap5, ap6, ap7, ap8, ap9, ap10, ap11, ap12, ap13
+# gpa, sat, act, ap1, ap2, ap3, ap4, ap5, ap6, ap7, ap8, ap9, ap10, ap11, ap12, ap13
 input_data = [
     [4.2, 1480, 0, 5, 4, 0, 0, 4, 5, 5, 5, 5, 4, 4, 5, 5],
     [4.5, 1580, 0, 5, 5, 5, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0],
@@ -16,10 +16,9 @@ input_data = [
 output_data = [
     5,
     35,
-
 ]
 
-
+# Possible inputs for AP classes
 APClassList = [
     "US History",
     "Calculus AB",
@@ -33,9 +32,12 @@ APClassList = [
     "Art History",
     "Psychology",
     "Spanish Language",
-    "Spanish Lieterature",
+    "Spanish Literature",
 ]
 
+# The major_map dictionary associates certain MBTI types with certain majors.
+# These are used to recommend a major based off of MBTI.
+# This will likely be replaced with a different algorithm later, but for now this is what we have.
 major_map = {
     'INTJ' : 'Computer Science',
     'INTP' : 'Engineering',
@@ -55,6 +57,8 @@ major_map = {
     'ESFP' : 'Music'
 }
 
+
+# List of dictionaries, each dictionary has "name": <name of school> and "image": <image of school logo>
 school_list = [
     {
         "name" : "UCLA",
@@ -143,6 +147,7 @@ residence_list = [
 ]
 
 
+# Uses the planned loan amount and years of payoff to generate a "loan score"
 def get_suggested_loan_score(loan_amount, years_payoff):
     if loan_amount > 100000 and years_payoff > 8:
         suggested_loan_sscore = 0.5
@@ -153,6 +158,8 @@ def get_suggested_loan_score(loan_amount, years_payoff):
     return suggested_loan_score
 
 
+# Maybe a resource for income of each college major?
+# https://www.visualcapitalist.com/visualizing-salaries-college-degrees/
 @app.route("/getschool/<gpa>/<sat>/<act>/<aplist>/<mbti>/<residence>/<loan_amount>")
 def get_suggested_school(gpa, sat, act, aplist, mbti, residence, loan_amount):
     gpa = float(gpa)
@@ -160,9 +167,9 @@ def get_suggested_school(gpa, sat, act, aplist, mbti, residence, loan_amount):
     act = int(act)
     loan_amount = float(loan_amount)
     res = random.choice(school_list)
-    if mbti in major_map:
+    if mbti in major_map:  # If their mbti type is found in the major_map, recommend that
         res['major'] = major_map[mbti]
-    else:
+    else:  # otherwise, simply recommend science
         res['major'] = 'Science'
     res = json.dumps(res, separators = (',', ':'))
     print(res)
