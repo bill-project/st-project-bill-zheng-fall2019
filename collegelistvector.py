@@ -19,7 +19,7 @@ Dukevm = [""]
 UPennva = [3.9, 1440, 1560, 32, 35, 10]
 UPennvm = []
 
-UChicagova = []
+UChicagova = [4.48, 1470, 1570, 33, 35, 10]
 UChicagovm = []
 
 Yaleva = []
