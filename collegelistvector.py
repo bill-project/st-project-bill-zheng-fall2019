@@ -16,7 +16,7 @@ ASUvm = [""]
 Dukeva = [3.94, 1450, 1570, 33, 35, 10]
 Dukevm = [""]
 
-UPennva = []
+UPennva = [3.9, 1440, 1560, 32, 35, 10]
 UPennvm = []
 
 UChicagova = []
