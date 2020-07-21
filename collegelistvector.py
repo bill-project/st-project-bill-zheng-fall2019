@@ -9,7 +9,8 @@ Harvardvm = [""]
 USCva = [3.79, 1350, 1530, 30, 34, 10]
 USCvm = [""]
 
-ASUva = []
+# TODO: find loan repayment time for ASU
+ASUva = [3.54, 1130, 1360, 22, 29, 0]
 ASUvm = []
 
 Dukeva = []
