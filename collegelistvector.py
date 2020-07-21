@@ -11,10 +11,10 @@ USCvm = [""]
 
 # TODO: find loan repayment time for ASU
 ASUva = [3.54, 1130, 1360, 22, 29, 0]
-ASUvm = []
+ASUvm = [""]
 
-Dukeva = []
-Dukevm = []
+Dukeva = [3.94, 1450, 1570, 33, 35, 10]
+Dukevm = [""]
 
 UPennva = []
 UPennvm = []
