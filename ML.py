@@ -1,51 +1,55 @@
-from sklearn.feature_extraction.text import CountVectorizer
+import pandas as pd
 from sklearn import svm
-from sklearn import linear_model
-from flask import Flask
-from flask_cors import CORS
-import data1
-#import json
-import pickle
 
-#import random
 
-app = Flask(__name__)
+dataset = pd.read_csv(r'C:\Users\billz\Desktop\ML\DataForML.csv')
+print(dataset)
 
-CORS(app)
+listthings = dataset.drop('Student profiles', axis=1)
+input1 = listthings.drop('Major 1', axis=1)
+input2 = input1.drop('Major 2', axis=1)
+input3 = input2.drop('Major 3', axis=1)
+finalinput = input3.drop('Academic Profile', axis=1)
 
-'''
-AP Chem, AP Psych, AP Physics C Mech, AP Physics C Elec, MBTI: 1 -- INTJ, 2 -- ESFP
-Major list (Output1) & strength (Output2)
-	1: Physics   1: Strong
-	2: Psych     2: Medium
-	3: Chem      3: Weak
-'''
-filename = 'model_source_major.sav'
-filename2 = "cv_model_vectorizer.pickle_major"
+print(finalinput)
 
-def major_training():
-	input_data = ['score1', 'score2', 'score3', 'score4', 'score5', 'score6', 'score7']
-	cv = CountVectorizer()
-	input_ = cv.fit_transform(input_data).toarray()
-	output1 = [1, 1, 2, 1, 3, 2, 2]
-	model = svm.SVC()
-	model.fit(input_, output1)
-	filename = 'model_source_major.sav'
-	filename2 = "cv_model_vectorizer.sav"
-	pickle.dump(model, open(filename, 'wb'))
-	pickle.dump(cv, open(filename2, "wb"))
+output_data1 = listthings['Major 1']
+output_data2 = listthings['Major 2']
+output_data3 = listthings['Major 3']
+output_data4 = listthings['Academic Profile']
 
-testML = ['3, 2, 0, 0, 2']
-@app.route("/majorfit/<profile>")
-def major_prediction(profile):
-	test = profile
-	filename = 'model_source_major.sav'
-	filename2 = "cv_model_vectorizer.sav"
-	loaded_model = pickle.load(open(filename, 'rb'))
-	cv = pickle.load(open(filename2, "rb"))
-	majorresult = loaded_model.predict(cv.transform(test).toarray())
-	print(majorresult)
-	return(str(majorresult[0]))
+model1 = svm.SVC()
+model1.fit(finalinput, output_data1)
 
-major_training()
-major_prediction(testML)
+model2 = svm.SVC()
+model2.fit(finalinput, output_data2)
+
+model3 = svm.SVC()
+model3.fit(finalinput, output_data3)
+
+model4 = svm.SVC()
+model4.fit(finalinput, output_data4)
+
+
+testprofile = []
+result1 = model1.predict([testprofile])
+result2 = model2.predict([testprofile])
+result3 = model3.predict([testprofile])
+result4 = model4.predict([testprofile])
+if (str(result1) != str(result2)) and (str(result2) != str(result3)):
+	print(result1)
+	print(result2)
+	print(result3)
+	print(result4)
+elif (str(result1) == str(result2)):
+	print(result1)
+	print(result3)
+	print(result4)
+elif (str(result1) == str(result3)):
+	print(result1)
+	print(result2)
+	print(result4)
+elif (str(result2) == str(result3)):
+	print(result1)
+	print(result2)
+	print(result4)
