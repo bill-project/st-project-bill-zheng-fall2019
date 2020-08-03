@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn import svm
 
 
-dataset = pd.read_csv(r'C:\Users\billz\Desktop\ML\DataForML.csv')
+dataset = pd.read_csv('DataForML.csv')
 print(dataset)
 
 listthings = dataset.drop('Student profiles', axis=1)
