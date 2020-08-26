@@ -2,6 +2,14 @@ from flask import Flask
 from flask_cors import CORS
 import json
 import random
+import numpy as np
+import matplotlib.pyplot as plt
+# Though the following import is not directly being used, it is required
+# for 3D projection to work
+from mpl_toolkits.mplot3d import Axes3D
+
+from sklearn.cluster import KMeans
+from sklearn import datasets
 
 app = Flask(__name__)
 CORS(app)
